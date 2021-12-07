@@ -360,7 +360,11 @@ class DeskproClient implements DeskproClientInterface
             return $this->makeResponse($this->lastHTTPResponse->getBody());
         } catch (RequestException $e) {
             $this->lastHTTPRequestException = $e;
-            throw $this->makeException($e->getResponse()->getBody());
+            if($e->getResponse() instanceof ResponseInterface){
+                throw $this->makeException($e->getResponse()->getBody());
+            }else{
+                throw $this->makeException($e->getMessage());
+            }
         }
     }
 
@@ -379,7 +383,11 @@ class DeskproClient implements DeskproClientInterface
                 return $this->makeResponse($resp->getBody());
             }, function (RequestException $e) {
                 $this->lastHTTPRequestException = $e;
-                throw $this->makeException($e->getResponse()->getBody());
+                if($e->getResponse() instanceof ResponseInterface){
+                    throw $this->makeException($e->getResponse()->getBody());
+                }else{
+                    throw $this->makeException($e->getMessage());
+                }
             });
     }
 
