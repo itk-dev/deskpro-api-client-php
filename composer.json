@@ -4,7 +4,7 @@
   "type": "library",
   "config": {
     "platform": {
-      "php": "5.5"
+      "php": "7.2.5"
     }
   },
   "keywords": [
@@ -27,6 +27,6 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^4.8",
-    "guzzlehttp/guzzle": "^7.3"
+    "guzzlehttp/guzzle": "^7.3.0"
   }
 }
