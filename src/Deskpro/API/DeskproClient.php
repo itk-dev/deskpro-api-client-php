@@ -154,8 +154,9 @@ class DeskproClient implements DeskproClientInterface
      */
     public function setHelpdeskUrl($helpdeskUrl)
     {
-        $this->helpdeskUrl = rtrim($helpdeskUrl, '/');
-
+        if (!is_null($helpdeskUrl)) {
+            $this->helpdeskUrl = rtrim($helpdeskUrl, '/');
+        }
         return $this;
     }
 
