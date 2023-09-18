@@ -58,14 +58,14 @@ class APIResponseTest extends TestCase
     /**
      * Run before each test
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->data   = ['test data 1', 'test data 2'];
         $this->meta   = ['test meta'];
         $this->linked = ['test linked'];
         $this->fixture = new APIResponse($this->data, $this->meta, $this->linked);
     }
-    
+
     /**
      * @covers ::getData
      * @covers ::getMeta
@@ -122,8 +122,7 @@ class APIResponseTest extends TestCase
         }
         
         $this->assertEquals($values, $this->data);
-        
-        reset($this->fixture);
+
         $values = [];
         foreach($this->fixture as $value) {
             $values[] = $value;

@@ -43,7 +43,7 @@ class URLInterpolatorTest extends TestCase
     /**
      * Run before each test
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = new URLInterpolator();
     }
