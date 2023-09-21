@@ -107,7 +107,7 @@ class DeskproClientTest extends TestCase
         ]);
         $resp = $client->request('HEAD', '/articles');
 
-        $this->assertInternalType('array', $resp);
+        $this->assertIsArray($resp);
     }
 
     /**
@@ -121,7 +121,7 @@ class DeskproClientTest extends TestCase
         $promise = $client->requestAsync('HEAD', '/articles');
         $resp = $promise->wait();
 
-        $this->assertInternalType('array', $resp);
+        $this->assertIsArray($resp);
     }
 
     /**
@@ -343,7 +343,7 @@ class DeskproClientTest extends TestCase
         ]);
         $resp = $client->delete('/articles/1');
 
-        $this->assertInternalType('array', $resp);
+        $this->assertIsArray($resp);
     }
 
     /**
@@ -357,7 +357,7 @@ class DeskproClientTest extends TestCase
         $promise = $client->deleteAsync('/articles/1');
         $resp = $promise->wait();
 
-        $this->assertInternalType('array', $resp);
+        $this->assertIsArray($resp);
     }
 
     /**
@@ -500,11 +500,12 @@ class DeskproClientTest extends TestCase
 
     /**
      * @covers ::get
-     * @expectedException \DeskPRO\API\Exception\APIException
-     * @expectedExceptionCode 500
      */
     public function testGetThrowsAPIException()
     {
+        $this->expectException(DeskPRO\API\Exception\APIException::class);
+        $this->expectExceptionCode(500);
+
         $body = [
             'status'  => 500,
             'message' => 'error'
@@ -517,11 +518,12 @@ class DeskproClientTest extends TestCase
 
     /**
      * @covers ::get
-     * @expectedException \DeskPRO\API\Exception\MalformedResponseException
-     * @expectedExceptionCode 0
      */
     public function testGetThrowsMalformedResponseException()
     {
+        $this->expectException(DeskPRO\API\Exception\MalformedResponseException::class);
+        $this->expectExceptionCode(0);
+
         $client = $this->getMockClient([
             new Response(400, [], 'test')
         ]);
@@ -530,12 +532,13 @@ class DeskproClientTest extends TestCase
 
     /**
      * @covers ::get
-     * @expectedException \DeskPRO\API\Exception\APIException
-     * @expectedExceptionCode 400
-     * @expectedExceptionMessage Request input is invalid: One or more of the given values is invalid.
      */
     public function testGetProperRootExceptionMessage()
     {
+        $this->expectException(DeskPRO\API\Exception\APIException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessage('Request input is invalid: One or more of the given values is invalid.');
+
         $body = [
             'status' => 400,
             'code' => 'invalid_input',
@@ -557,12 +560,13 @@ class DeskproClientTest extends TestCase
 
     /**
      * @covers ::get
-     * @expectedException \DeskPRO\API\Exception\APIException
-     * @expectedExceptionCode 400
-     * @expectedExceptionMessage Request input is invalid: 'department' One or more of the given values is invalid.
      */
     public function testGetProperFieldExceptionMessage()
     {
+        $this->expectException(DeskPRO\API\Exception\APIException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessage('Request input is invalid: \'department\' One or more of the given values is invalid.');
+
         $body = [
             'status' => 400,
             'code' => 'invalid_input',
@@ -588,12 +592,13 @@ class DeskproClientTest extends TestCase
 
     /**
      * @covers ::get
-     * @expectedException \DeskPRO\API\Exception\APIException
-     * @expectedExceptionCode 400
-     * @expectedExceptionMessage Request input is invalid: 'parent_field.child_field' One or more of the given values is invalid.
      */
     public function testGetProperChildFieldExceptionMessage()
     {
+        $this->expectException(DeskPRO\API\Exception\APIException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessage('Request input is invalid: \'parent_field.child_field\' One or more of the given values is invalid.');
+
         $body = [
             'status' => 400,
             'code' => 'invalid_input',
@@ -623,11 +628,12 @@ class DeskproClientTest extends TestCase
 
     /**
      * @covers ::get
-     * @expectedException \DeskPRO\API\Exception\AuthenticationException
-     * @expectedExceptionCode 401
      */
     public function testGetThrowsAuthenticationException()
     {
+        $this->expectException(DeskPRO\API\Exception\AuthenticationException::class);
+        $this->expectExceptionCode(401);
+
         $body = [
             'status'  => 401,
             'message' => 'authentication'
@@ -640,11 +646,12 @@ class DeskproClientTest extends TestCase
 
     /**
      * @covers ::get
-     * @expectedException \DeskPRO\API\Exception\AccessDeniedException
-     * @expectedExceptionCode 403
      */
     public function testGetThrowsAccessDeniedException()
     {
+        $this->expectException(DeskPRO\API\Exception\AccessDeniedException::class);
+        $this->expectExceptionCode(403);
+
         $body = [
             'status'  => 403,
             'message' => 'access denied'
@@ -657,11 +664,12 @@ class DeskproClientTest extends TestCase
 
     /**
      * @covers ::get
-     * @expectedException \DeskPRO\API\Exception\NotFoundException
-     * @expectedExceptionCode 404
      */
     public function testGetThrowsNotFoundException()
     {
+        $this->expectException(DeskPRO\API\Exception\NotFoundException::class);
+        $this->expectExceptionCode(404);
+
         $body = [
             'status'  => 404,
             'message' => 'not found'
